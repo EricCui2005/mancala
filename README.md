@@ -1,0 +1,2 @@
+# mancala
+Mancala AI project
