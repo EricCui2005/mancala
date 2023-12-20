@@ -18,13 +18,20 @@ class Board:
 
         # Initializing the two mancalas
         self.board.insert(6, pocket.Pocket("mancala", 0, 1, -1))
-        self.board.insert(0, pocket.Pocket("mancala", 0, 2, -1))
+        self.board.insert(13, pocket.Pocket("mancala", 0, 2, -1))
 
+    # Returns a simple version of the board containing the correct pockets in the correct orientation
+    # Player1's pockets and mancala is on the bottom row, player2's pockets and mancala is on the top row
     def __str__(self):
-        result = ""
-        for pocket in self.board:
-            result += " " + str(pocket)
-        return result
+        bottom_row = ""
+        top_row = ""
+
+        for i in range(7):
+            bottom_row += f" {self.board[i].simple_string()}"
+        for i in range(13, 6, -1):
+            top_row += f"{self.board[i].simple_string()} "
+
+        return f"{top_row}\n   {bottom_row}"
 
     def move(self, player, position):
 
