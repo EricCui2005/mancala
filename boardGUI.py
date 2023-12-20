@@ -4,47 +4,31 @@ class BoardGUI():
 
     def __init__(self):
 
+        # Initializing the root window, its geometry, and configuring its grid for the purposes of
+        # subsequent frame centering
         self.root = tk.Tk()
-        self.root.geometry("800x800")
+        self.root.geometry("500x500")
         self.root.grid_rowconfigure(0, weight=1)
         self.root.grid_columnconfigure(0, weight=1)
+
+        # Initializing a frame to nicely place the playable pocket buttons into
         self.pocket_frame = tk.Frame(self.root)
 
-        # Creating buttons to represent each of the playable pockets
-        # b1_0 is player 1's first playable pocket, b1_1 is player 1's second playable pocket,
-        # b2_0 is player 2's first playable pocket, b2_1 is player 2's second playable pocket, etc.
-        self.b1_0 = tk.Button(self.pocket_frame, text="b1_0", font=('Arial', 10))
-        self.b1_1 = tk.Button(self.pocket_frame, text="b1_1", font=('Arial', 10))
-        self.b1_2 = tk.Button(self.pocket_frame, text="b1_2", font=('Arial', 10))
-        self.b1_3 = tk.Button(self.pocket_frame, text="b1_3", font=('Arial', 10))
-        self.b1_4 = tk.Button(self.pocket_frame, text="b1_4", font=('Arial', 10))
-        self.b1_5 = tk.Button(self.pocket_frame, text="b1_5", font=('Arial', 10))
+        # Initializing a list to hold the buttons for iterative placement into the pocket_frame grid
+        self.playable_pockets = []
 
-        self.b2_0 = tk.Button(self.pocket_frame, text="b2_0", font=('Arial', 10))
-        self.b2_1 = tk.Button(self.pocket_frame, text="b2_1", font=('Arial', 10))
-        self.b2_2 = tk.Button(self.pocket_frame, text="b2_2", font=('Arial', 10))
-        self.b2_3 = tk.Button(self.pocket_frame, text="b2_3", font=('Arial', 10))
-        self.b2_4 = tk.Button(self.pocket_frame, text="b2_4", font=('Arial', 10))
-        self.b2_5 = tk.Button(self.pocket_frame, text="b2_5", font=('Arial', 10))
-
+        # Placing pocket_frame into root (and leveraging row and column configuration to center it)
         self.pocket_frame.grid(row=0, column=0)
 
-        # l1.grid(row=0, column=0, sticky=W, pady=2)
+        for i in range(6):
+            self.playable_pockets.append(tk.Button(self.pocket_frame, text=f"b1_{i}", font=('Arial', 10)))
+        for i in range(6):
+            self.playable_pockets[i].grid(row=1, column=i, padx=5, pady=5)
 
-        self.b1_0.grid(row=1, column=0, padx=5, pady=5)
-        self.b1_1.grid(row=1, column=1, padx=5, pady=5)
-        self.b1_2.grid(row=1, column=2, padx=5, pady=5)
-        self.b1_3.grid(row=1, column=3, padx=5, pady=5)
-        self.b1_4.grid(row=1, column=4, padx=5, pady=5)
-        self.b1_5.grid(row=1, column=5, padx=5, pady=5)
-
-        self.b2_5.grid(row=0, column=0, padx=5, pady=5)
-        self.b2_4.grid(row=0, column=1, padx=5, pady=5)
-        self.b2_3.grid(row=0, column=2, padx=5, pady=5)
-        self.b2_2.grid(row=0, column=3, padx=5, pady=5)
-        self.b2_1.grid(row=0, column=4, padx=5, pady=5)
-        self.b2_0.grid(row=0, column=5, padx=5, pady=5)
-
+        for i in range(6):
+            self.playable_pockets.append(tk.Button(self.pocket_frame, text=f"b2_{5 - i}", font=('Arial', 10)))
+        for i in range(6):
+            self.playable_pockets[i + 6].grid(row=0, column=i, padx=5, pady=5)
 
         self.root.mainloop()
 
