@@ -1,5 +1,6 @@
 import pocket
 
+
 class Board:
     # List to hold the representation of the mancala board
     board = []
@@ -11,19 +12,20 @@ class Board:
         # Populating board with two mancalas and 12 pockets, placed accordingly
         for i in range(12):
             if i < 6:
-                self.board.append(pocket.Pocket("pocket", 4, 1))
+                self.board.append(pocket.Pocket("pocket", 4, 1, i))
             else:
-                self.board.append(pocket.Pocket("pocket", 4, 2))
+                self.board.append(pocket.Pocket("pocket", 4, 2, i-6))
 
         # Initializing the two mancalas
-        self.board.insert(6, pocket.Pocket("mancala", 0, 1))
-        self.board.insert(0, pocket.Pocket("mancala", 0, 2))
+        self.board.insert(6, pocket.Pocket("mancala", 0, 1, -1))
+        self.board.insert(0, pocket.Pocket("mancala", 0, 2, -1))
 
     def __str__(self):
         result = ""
         for pocket in self.board:
             result += " " + str(pocket)
         return result
+
     def move(self, player, position):
 
         # Checking to make sure the move is in bounds
@@ -47,7 +49,6 @@ class Board:
         current_pocket.empty()
 
         for i in range(num_stones):
-
             # Iterating through the pockets in the board
             current_pocket = self.board[position + 1 + i]
             current_pocket.increment_stones()
@@ -62,27 +63,3 @@ class Board:
                 if self.board[i].get_stones() != 0:
                     return False
         return True
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
