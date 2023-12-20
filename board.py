@@ -48,8 +48,27 @@ class Board:
 
         return f"{top_row}\n   {bottom_row}"
 
+    def print_board(self, print_type):
+        """
+        Prints the board
+        :param print_type: (str) determines which type of board representation to print. Inputting "raw"
+        prints out the __str__ representation of the class while "simple" prints out the simple_string() representation
+        :return: (void)
+        """
+        if print_type == "raw":
+            print(str(self))
+        if print_type == "simple":
+            print(self.simple_string())
+
     # Makes a move with built-in error checking
     def move(self, player, position):
+        """
+        Performs a mancala cascade move
+        :param player: (int) The player moving. 1 indicates player1, 2 indicates player2
+        :param position: (int) Indicates which pocket to move from. It is the index of the pocket
+        (note: mancalas are illegal to move from)
+        :return: (void)
+        """
 
         # Checking to make sure the move is in bounds
         if position < 0 or position > 12:
