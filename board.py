@@ -60,10 +60,9 @@ class Board:
         if print_type == "simple":
             print(self.simple_string())
 
-    # Makes a move with built-in error checking
     def move(self, player, position):
         """
-        Performs a mancala cascade move
+        Performs a mancala cascade move with built-in illegal move checking
         :param player: (int) The player moving. 1 indicates player1, 2 indicates player2
         :param position: (int) Indicates which pocket to move from. It is the index of the pocket
         (note: mancalas are illegal to move from)
@@ -90,11 +89,20 @@ class Board:
         num_stones = current_pocket.get_stones()
         current_pocket.empty()
 
+        # Iterating through the pockets in the board and incrementing accordingly
         for i in range(num_stones):
-            # Iterating through the pockets in the board and incrementing accordingly
+
             # Uses modulus to ensure the moves properly wrap around
             current_pocket = self.board[(position + 1 + i) % 14]
             current_pocket.increment_stones()
+
+        # Tracking the ending pocket to determine whether the move continues
+        end_pocket = self.board[current_pocket.get_position()]
+
+        # Move continues if the ending pocket belongs to the player and it is not a mancala
+        if end_pocket.get_player() == player and end_pocket.get_type() == "pocket":
+            self.move(player, end_pocket.get_position())
+
 
     # Function to check if the game is finished
     # The game is finished when all the pockets have 0 stones
