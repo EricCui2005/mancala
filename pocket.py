@@ -12,9 +12,7 @@ class Pocket:
         # "pocket" for regular pocket, "mancala" for mancala
         self.type = pocket_type
 
-        # (int) The of the pocket on the player's side
-        # Pockets go from 0-5. 0 indicates the first pocket the corresponding player can play from
-        # -1 designates that player's mancala
+        # (int) The position of the pocket on board (0-13)
         self.position = position
 
     # Returns a comprehensive string representation describing all the pocket's information
@@ -23,7 +21,7 @@ class Pocket:
         # Returns a point-like string of the form (pocket_type, num_stones, player, position)
         return f"({self.type}, {self.num_stones}, {self.player}, {self.position}）"
 
-    #
+    # Returns a simple representation of the pocket depicting the number of stones it has
     def simple_string(self):
         return f"({self.num_stones})"
 
@@ -34,6 +32,8 @@ class Pocket:
         return self.num_stones
     def get_player(self):
         return self.player
+    def get_position(self):
+        return self.position
 
     # Mutators
     def empty(self):
