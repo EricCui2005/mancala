@@ -9,20 +9,35 @@ class Board:
     # with 12 pockets and two mancalas
     def __init__(self):
 
-        # Populating board with two mancalas and 12 pockets, placed accordingly
-        for i in range(12):
-            if i < 6:
-                self.board.append(pocket.Pocket("pocket", 4, 1, i))
-            else:
-                self.board.append(pocket.Pocket("pocket", 4, 2, i-6))
+        # Initializing player1's playable pockets
+        for i in range(6):
+            self.board.append(pocket.Pocket("pocket", 4, 1, i))
 
-        # Initializing the two mancalas
-        self.board.insert(6, pocket.Pocket("mancala", 0, 1, -1))
-        self.board.insert(13, pocket.Pocket("mancala", 0, 2, -1))
+        # Adding player1's mancala
+        self.board.append(pocket.Pocket("mancala", 0, 1, 6))
+
+        # Initializing player2's playable pockets
+        for i in range(7, 13):
+            self.board.append(pocket.Pocket("pocket", 4, 2, i))
+
+        # Adding player2's mancala
+        self.board.append(pocket.Pocket("mancala", 0, 2, 13))
+
+    # Comprehensive string representation of the board
+    def __str__(self):
+        bottom_row = ""
+        top_row = ""
+
+        for i in range(7):
+            bottom_row += f" {self.board[i]}"
+        for i in range(13, 6, -1):
+            top_row += f"{self.board[i]} "
+
+        return f"{top_row}\n{bottom_row}"
 
     # Returns a simple version of the board containing the correct pockets in the correct orientation
     # Player1's pockets and mancala is on the bottom row, player2's pockets and mancala is on the top row
-    def __str__(self):
+    def simple_string(self):
         bottom_row = ""
         top_row = ""
 
