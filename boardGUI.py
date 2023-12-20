@@ -1,9 +1,9 @@
 import tkinter as tk
 
-class BoardGUI():
+
+class BoardGUI:
 
     def __init__(self):
-
         # Initializing the root window, its geometry, and configuring its grid for the purposes of
         # subsequent frame centering
         self.root = tk.Tk()
@@ -20,16 +20,17 @@ class BoardGUI():
         # Placing pocket_frame into root (and leveraging row and column configuration to center it)
         self.pocket_frame.grid(row=0, column=0)
 
+        # Iteratively placing the buttons into the pocket_frame grid
         for i in range(6):
-            self.playable_pockets.append(tk.Button(self.pocket_frame, text=f"b1_{i}", font=('Arial', 10)))
-        for i in range(6):
-            self.playable_pockets[i].grid(row=1, column=i, padx=5, pady=5)
+            # Placing buttons for player1
+            self.current_button = tk.Button(self.pocket_frame, text=f"(1, {i})", font=('Arial', 10), height=2, width=5)
+            self.current_button.grid(row=1, column=i, padx=5, pady=5)
 
-        for i in range(6):
-            self.playable_pockets.append(tk.Button(self.pocket_frame, text=f"b2_{5 - i}", font=('Arial', 10)))
-        for i in range(6):
-            self.playable_pockets[i + 6].grid(row=0, column=i, padx=5, pady=5)
+            # Placing buttons for player2
+            self.current_button = tk.Button(self.pocket_frame, text=f"(2, {5 - i})", font=('Arial', 10), height=2, width=5)
+            self.current_button.grid(row=0, column=i, padx=5, pady=5)
 
         self.root.mainloop()
+
 
 BoardGUI()
