@@ -33,17 +33,18 @@ class Board:
 
         return f"{top_row}\n   {bottom_row}"
 
+    # Makes a move with built-in error checking
     def move(self, player, position):
 
         # Checking to make sure the move is in bounds
         if position < 0 or position > 12:
-            raise Exception("Invalid Move: Position out of bounds (0-11)")
+            raise Exception("Invalid Move: Position out of bounds")
 
         current_pocket = self.board[position]
 
         # Checking to make sure the move is not from a mancala, the pocket does not belong to the
         # other player, and the pocket is not empty
-        if current_pocket.get_type == "mancala":
+        if current_pocket.get_type() == "mancala":
             raise Exception("Invalid Move: Cannot move from a mancala")
         if current_pocket.get_player() != player:
             raise Exception("Invalid Move: Pocket belongs to other player")
@@ -56,8 +57,9 @@ class Board:
         current_pocket.empty()
 
         for i in range(num_stones):
-            # Iterating through the pockets in the board
-            current_pocket = self.board[position + 1 + i]
+            # Iterating through the pockets in the board and incrementing accordingly
+            # Uses modulus to ensure the moves properly wrap around
+            current_pocket = self.board[(position + 1 + i) % 14]
             current_pocket.increment_stones()
 
     # Function to check if the game is finished
