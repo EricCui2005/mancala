@@ -1,4 +1,10 @@
-# Holds the representation of a pocket
+"""
+Name: pocket.py
+Author: Eric Cui
+Created: December 2023
+Description: Contains the Pocket class. The Pocket class contains all the logic for mancala pocket/mancala
+representation and manipulation
+"""
 class Pocket:
     def __init__(self, pocket_type, num_stones, player, position):
         # (int) Number of stones in the pocket
@@ -42,3 +48,7 @@ class Pocket:
     # Adds one stone to the pocket (as in when it is "moved over" over the course of a move)
     def increment_stones(self):
         self.num_stones += 1
+
+    # Sets the stone in the pocket
+    def set_stones(self, stone_count):
+        self.num_stones = stone_count
