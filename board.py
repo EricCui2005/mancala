@@ -153,6 +153,7 @@ class Board:
         if end_pocket.get_player() == player and end_pocket.get_type() == "pocket" and end_pocket.get_stones() > 1:
             self.print_board("simple")
             self.move(player, end_pocket.get_position())
+            return False
 
         # Player is allowed another move if their final move lands in their mancala
         if end_pocket.get_player() == player and end_pocket.get_type() == "mancala":
