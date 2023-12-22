@@ -9,6 +9,10 @@ import pocket
 
 
 class Board:
+    """
+    The Board class contains all the logic for mancala board representation and manipulation
+    """
+
     # List to hold the representation of the mancala board
     board = []
 
@@ -30,8 +34,12 @@ class Board:
         # Adding player2's mancala
         self.board.append(pocket.Pocket("mancala", 0, 2, 13))
 
-    # Comprehensive string representation of the board
     def __str__(self):
+        """
+        Comprehensive string representation of the board
+        :return: (str) The string representation of the board that displays all information about every pocket.
+        This includes type, number of stones it contains, the player it belongs to, and its position
+        """
         bottom_row = ""
         top_row = ""
 
@@ -42,9 +50,12 @@ class Board:
 
         return f"{top_row}\n{bottom_row}"
 
-    # Returns a simple version of the board containing the correct pockets in the correct orientation
-    # Player1's pockets and mancala is on the bottom row, player2's pockets and mancala is on the top row
     def simple_string(self):
+        """
+        Returns a simple string representation of the board
+        :return: (str) The string representation of the board that displays only the number of stones contained
+        in each pocket
+        """
         bottom_row = ""
         top_row = ""
 
@@ -121,7 +132,6 @@ class Board:
         (note: mancalas are illegal to move from)
         :return: (bool) True if the player's final move is in their own mancala, false if not
         """
-
         current_pocket = self.board[position]
 
         # Accessing the number of stones we have to move with and setting the number of
@@ -197,6 +207,11 @@ class Board:
             self.board[i].set_stones(stone_counts[i])
 
     def switch_player(self, player):
+        """
+        Helper function to switch players
+        :param player: (int) 1 for player1, 2 for player2
+        :return: (int) Returns the int representation for the other player
+        """
         if player == 1:
             return 2
         else:
