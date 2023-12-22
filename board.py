@@ -130,9 +130,20 @@ class Board:
         current_pocket.empty()
 
         # Iterating through the pockets in the board and incrementing accordingly
+        # shift if used to check if the opposing player's mancala has been encountered. If it has,
+        # we simply "shift" the pockets that we increment by 1 to make sure we do not place within
+        # the mancala
+        shift = 0
         for i in range(num_stones):
+            current_pocket = self.board[(position + shift + 1 + i) % 14]
+
+            # Checking if the pocket we are iterating over is the mancala of the other player
+            # If it is, we increment shift to track the new shift
+            if current_pocket.get_player() != player and current_pocket.get_type() == "mancala":
+                shift += 1
+
             # Uses modulus to ensure the moves properly wrap around
-            current_pocket = self.board[(position + 1 + i) % 14]
+            current_pocket = self.board[(position + shift + 1 + i) % 14]
             current_pocket.increment_stones()
 
         # Tracking the ending pocket to determine whether the move continues
