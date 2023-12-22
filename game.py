@@ -48,7 +48,6 @@ def play_game(play_board):
 
                 # If the player lands in their mancala, and they have valid moves, we print the board
                 # and allow the player to move again (through the continue statement)
-                play_board.print_board("simple")
                 continue
 
         # We evaluate if the other player has valid moves if the current moving player did not land
