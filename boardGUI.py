@@ -10,6 +10,7 @@ import tkinter as tk
 class BoardGUI:
 
     def __init__(self, play_board):
+
         # Initializing the root window, its geometry, and configuring its grid for the purposes of
         # subsequent frame centering
         self.root = tk.Tk()
@@ -34,12 +35,12 @@ class BoardGUI:
 
             # Placing buttons for player1
             current_pocket = self.play_board.board[i]
-            self.current_button = tk.Button(self.pocket_frame, text=current_pocket.simple_string(), font=('Arial', 10), height=2, width=8, command=lambda: self.button_move(True, current_pocket))
+
+            self.current_button = tk.Button(self.pocket_frame, text=self.play_board.board[i].simple_string(), font=('Arial', 10), height=2, width=8, command=lambda position=i: self.button_move(True, 1, position))
             self.current_button.grid(row=1, column=i, padx=5, pady=5)
 
             # Placing buttons for player2
-            current_pocket = self.play_board.board[12 - i]
-            self.current_button = tk.Button(self.pocket_frame, text=current_pocket.simple_string(), font=('Arial', 10), height=2, width=8, command=lambda: self.button_move(True, current_pocket))
+            self.current_button = tk.Button(self.pocket_frame, text=self.play_board.board[12 - i].simple_string(), font=('Arial', 10), height=2, width=8, command=lambda position=12 - i: self.button_move(True, 2, position))
             self.current_button.grid(row=0, column=i, padx=5, pady=5)
 
         # Placing mancalas
@@ -53,22 +54,21 @@ class BoardGUI:
         self.root.mainloop()
 
 
-    def button_move(self, legal, pocket):
+    def button_move(self, legal, player, position):
         """
         Function that is called when the user clicks on a pocket button
         :param legal: (bool) True if clicking the button (and consequently the move associated with it)
         is legal given the current game state
-        :param pocket: (class Pocket) The Pocket we are moving from
-        :return:
+        :param player: (int) 1 for player1, 2 for player2
+        :param position: (int) The pocket at the position is being moved
+        :return: (void)
         """
         if legal == True:
-            print(f"Moving pocket {pocket.get_position()}")
-            self.play_board.move(pocket.get_player(), pocket.get_position())
+            self.play_board.move(player, position)
             self.update_boardGUI()
 
     # Updates the text of the buttons and mancalas in the boardGUI
     def update_boardGUI(self):
-
         for i in range(6):
             widget = self.pocket_frame.grid_slaves(row=1, column=i)[0]
             widget.configure(text=self.play_board.board[i].simple_string())
