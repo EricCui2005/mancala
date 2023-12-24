@@ -1,0 +1,8 @@
+BOARD
+- The mancala board is stored as a list of 14 playable pockets
+- Pockets at indices 0-5 are player1's playable pockets, with pocket at index 6 being player1's mancala.
+- Pockets at indices 7-12 are player2's playable pockets, with pocket at index 13 being player2's mancala.
+
+PLAYERS
+- player1 is represented with (int) 1
+- player2 is represented with (int) 2
