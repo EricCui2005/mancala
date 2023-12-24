@@ -83,7 +83,7 @@ class Board:
         Checks if inputted move is valid
         :param player: (int) The player moving. 1 indicates player1, 2 indicates player2
         :param position: (int) Indicates which pocket to move from. It is the index of the pocket
-        :return:
+        :return: True is the move is valid, False if it is not
         """
 
         # Checking to make sure the move is in bounds
@@ -162,8 +162,7 @@ class Board:
         # Move continues if the ending pocket belongs to the player, it is not a mancala, and it has more than one stone
         if end_pocket.get_player() == player and end_pocket.get_type() == "pocket" and end_pocket.get_stones() > 1:
             self.print_board("simple")
-            self.move(player, end_pocket.get_position())
-            return False
+            return self.move(player, end_pocket.get_position())
 
         # Player is allowed another move if their final move lands in their mancala
         if end_pocket.get_player() == player and end_pocket.get_type() == "mancala":
