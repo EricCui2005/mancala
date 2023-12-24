@@ -216,12 +216,36 @@ class Board:
             return 2
         else:
             return 1
-    
+
     # Returns the number of stones the corresponding player has in their mancala
     def mancala_count(self, player):
         if player == 1:
             return self.board[6].get_stones()
         elif player == 2:
             return self.board[13].get_stones()
+
+    def get_valid_moves(self, player):
+        """
+        Gets all the valid moves for the moving player given the current board state
+        :param player: (int) 1 for player2, 2 for player2
+        :return: (list) List of integers representing the indices of pockets that
+        are valid moves
+        """
+
+        # Stores the indices of the valid moves for the moving player
+        valid_moves = []
+
+        # Search indices 0-5 if moving player is player1
+        if player == 1:
+            for i in range(6):
+                if self.valid_move(1, i):
+                    valid_moves.append(i)
+
+        # Search indices 7-12 if moving player is player2
+        elif player == 2:
+            for i in range(7, 13):
+                if self.valid_move(2, i):
+                    valid_moves.append(i)
+        return valid_moves
 
 
