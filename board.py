@@ -216,5 +216,12 @@ class Board:
             return 2
         else:
             return 1
+    
+    # Returns the number of stones the corresponding player has in their mancala
+    def mancala_count(self, player):
+        if player == 1:
+            return self.board[6].get_stones()
+        elif player == 2:
+            return self.board[13].get_stones()
 
 
