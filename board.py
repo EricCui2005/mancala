@@ -170,6 +170,7 @@ class Board:
             return True
 
         self.print_board("simple")
+        print("\n")
         return False
 
     # Function to check if the game is finished
