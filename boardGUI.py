@@ -27,8 +27,15 @@ class BoardGUI:
         # Placing pocket_frame into root (and leveraging row and column configuration to center it)
         self.pocket_frame.grid(row=1, column=1)
 
+        # This label tracks which player's turn it is as well as if there is an endgame state
+        self.game_state = tk.Label(self.root, text="Player 1 to move", font=('Arial', 20))
+        self.game_state.grid(row=0, column=1, pady=10)
+
         # Initializing the internal representation of the game board
         self.play_board = play_board
+
+        # Initializing the player
+        self.current_player = 1
 
         # Iteratively placing the buttons into the pocket_frame grid
         for i in range(6):
@@ -36,11 +43,11 @@ class BoardGUI:
             # Placing buttons for player1
             current_pocket = self.play_board.board[i]
 
-            self.current_button = tk.Button(self.pocket_frame, text=self.play_board.board[i].simple_string(), font=('Arial', 10), height=2, width=8, command=lambda position=i: self.button_move(True, 1, position))
+            self.current_button = tk.Button(self.pocket_frame, text=self.play_board.board[i].simple_string(), font=('Arial', 10), height=2, width=8, command=lambda position=i: self.button_move(position))
             self.current_button.grid(row=1, column=i, padx=5, pady=5)
 
             # Placing buttons for player2
-            self.current_button = tk.Button(self.pocket_frame, text=self.play_board.board[12 - i].simple_string(), font=('Arial', 10), height=2, width=8, command=lambda position=12 - i: self.button_move(True, 2, position))
+            self.current_button = tk.Button(self.pocket_frame, text=self.play_board.board[12 - i].simple_string(), font=('Arial', 10), height=2, width=8, command=lambda position=12 - i: self.button_move(position))
             self.current_button.grid(row=0, column=i, padx=5, pady=5)
 
         # Placing mancalas
@@ -54,18 +61,34 @@ class BoardGUI:
         self.root.mainloop()
 
 
-    def button_move(self, legal, player, position):
+    def button_move(self, position):
         """
         Function that is called when the user clicks on a pocket button
-        :param legal: (bool) True if clicking the button (and consequently the move associated with it)
-        is legal given the current game state
-        :param player: (int) 1 for player1, 2 for player2
-        :param position: (int) The pocket at the position is being moved
+        :param position: (int) The pocket at the position that is being moved
         :return: (void)
         """
-        if legal == True:
-            self.play_board.move(player, position)
-            self.update_boardGUI()
+        # Displaying which player's turn it is
+        self.root.grid_slaves(row=0, column=1)[0].configure(text=f"Player {self.current_player} to move")
+
+        # Nothing happens if the current move is invalid
+        if not self.play_board.valid_move(self.current_player, position):
+            return
+
+        # We switch players if the supposed current player has no valid moves (their playable pockets are empty)
+        if self.play_board.empty_side(self.current_player):
+            self.current_player = self.play_board.switch_player(self.current_player)
+
+        # Performing the move and checking if the moving player landed in their mancala
+        if not self.play_board.move(self.current_player, position):
+
+            # We only switch players if the moving player did not land in their mancala
+            self.current_player = self.play_board.switch_player(self.current_player)
+
+        # Updating the boardGUI
+        self.update_boardGUI()
+
+        if self.play_board.check_end():
+            self.root.grid_slaves(row=0, column=1)[0].configure(text="Game end")
 
     # Updates the text of the buttons and mancalas in the boardGUI
     def update_boardGUI(self):
