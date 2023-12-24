@@ -67,8 +67,6 @@ class BoardGUI:
         :param position: (int) The pocket at the position that is being moved
         :return: (void)
         """
-        # Displaying which player's turn it is
-        self.root.grid_slaves(row=0, column=1)[0].configure(text=f"Player {self.current_player} to move")
 
         # Nothing happens if the current move is invalid
         if not self.play_board.valid_move(self.current_player, position):
@@ -86,6 +84,9 @@ class BoardGUI:
 
         # Updating the boardGUI
         self.update_boardGUI()
+
+        # Displaying which player's turn it is
+        self.root.grid_slaves(row=0, column=1)[0].configure(text=f"Player {self.current_player} to move")
 
         if self.play_board.check_end():
             self.root.grid_slaves(row=0, column=1)[0].configure(text="Game end")
