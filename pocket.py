@@ -10,7 +10,7 @@ class Pocket:
     The Pocket class contains all the logic for representing and manipulating a playable mancala pocket/mancala
     """
     def __init__(self, pocket_type, num_stones, player, position):
-        
+
         # (int) Number of stones in the pocket
         self.num_stones = num_stones
 
@@ -27,18 +27,18 @@ class Pocket:
 
     def __str__(self):
         """
-        Returns a comprehensive string representation describing a pocket's type, the number of stones it 
+        Returns a comprehensive string representation describing a pocket's type, the number of stones it
         contains, the player to which it belongs, and its position.
-        :return: 
+        :return:
         """
-        
+
         # Returns a point-like string of the form (pocket_type, num_stones, player, position)
         return f"({self.type}, {self.num_stones}, {self.player}, {self.position}）"
 
     def simple_string(self):
         """
         Returns a simple representation of the pocket describing only the number of stones it contains
-        :return: 
+        :return:
         """
         return f"({self.num_stones})"
 
