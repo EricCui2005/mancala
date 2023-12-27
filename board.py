@@ -83,12 +83,12 @@ class Board:
         Checks if inputted move is valid
         :param player: (int) The player moving. 1 indicates player1, 2 indicates player2
         :param position: (int) Indicates which pocket to move from. It is the index of the pocket
-        :return: True is the move is valid, False if it is not
+        :return: True if the move is valid, False if it is not
         """
 
         # Checking to make sure the move is in bounds
         if position < 0 or position > 12:
-            print("Invalid position")
+            # print("Invalid position")
             return False
 
         current_pocket = self.board[position]
@@ -96,13 +96,13 @@ class Board:
         # Checking to make sure the move is not from a mancala, the pocket does not belong to the
         # other player, and the pocket is not empty
         if current_pocket.get_type() == "mancala":
-            print(f"Pocket type = {current_pocket.get_type()}")
+            # print(f"Pocket type = {current_pocket.get_type()}")
             return False
         if current_pocket.get_player() != player:
-            print(f"Pocket player = {current_pocket.get_player()}")
+            # print(f"Pocket player = {current_pocket.get_player()}")
             return False
         if current_pocket.get_stones() == 0:
-            print(f"Pocket stones = {current_pocket.get_stones()}")
+            # print(f"Pocket stones = {current_pocket.get_stones()}")
             return False
 
         # Move is valid if other cases do not fire
@@ -124,9 +124,11 @@ class Board:
                     return False
         return True
 
-    def move(self, player, position):
+    def move(self, player, position, print_mode):
         """
         Performs a mancala cascade move and tracks whether the player landed in their own mancala
+        :param print_mode: (bool) Determines whether the intermediate board positions should be
+        outputted to the console
         :param player: (int) The player moving. 1 indicates player1, 2 indicates player2
         :param position: (int) Indicates which pocket to move from. It is the index of the pocket
         (note: mancalas are illegal to move from)
@@ -161,16 +163,18 @@ class Board:
 
         # Move continues if the ending pocket belongs to the player, it is not a mancala, and it has more than one stone
         if end_pocket.get_player() == player and end_pocket.get_type() == "pocket" and end_pocket.get_stones() > 1:
-            self.print_board("simple")
-            return self.move(player, end_pocket.get_position())
+            if print_mode:
+                self.print_board("simple")
+            return self.move(player, end_pocket.get_position(), print_mode)
 
         # Player is allowed another move if their final move lands in their mancala
         if end_pocket.get_player() == player and end_pocket.get_type() == "mancala":
-            self.print_board("simple")
+            if print_mode:
+                self.print_board("simple")
             return True
-
-        self.print_board("simple")
-        print("\n")
+        if print_mode:
+            self.print_board("simple")
+            print("\n")
         return False
 
     # Function to check if the game is finished
@@ -228,8 +232,7 @@ class Board:
         """
         Gets all the valid moves for the moving player given the current board state
         :param player: (int) 1 for player2, 2 for player2
-        :return: (list) List of integers representing the indices of pockets that
-        are valid moves
+        :return: (list) List of integers representing the indices of the valid moves
         """
 
         # Stores the indices of the valid moves for the moving player
