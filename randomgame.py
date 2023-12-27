@@ -37,3 +37,27 @@ def randomGame():
     else:
         return 0
 
+def random_game_trials(num_trials):
+    """
+    Runs a random vs random game trials
+    :param num_trials: (int) The number of trials to be run
+    :return: (list) of (int) Returns a list containing the win information. The first entry is the number of
+    player1 wins, the second is player2 wins, and the third is the number of draws
+    """
+    
+    # List to contain win information
+    win_data = [0, 0, 0]
+
+    # Executing trials according the num_trials
+    for i in range(num_trials):
+        result = randomGame()
+        if result == 1:
+            win_data[0] += 1
+        elif result == 2:
+            win_data[1] += 1
+        else:
+            win_data[2] += 1
+    return win_data
+
+
+
