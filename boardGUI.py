@@ -9,7 +9,10 @@ import tkinter as tk
 
 class BoardGUI:
 
-    def __init__(self, play_board):
+    def __init__(self, play_board, mode):
+
+        # Defines which play mode the game will be in
+        self.mode = mode
 
         # Initializing the root window, its geometry, and configuring its grid for the purposes of
         # subsequent frame centering
@@ -73,7 +76,7 @@ class BoardGUI:
             return
 
         # Performing the move and checking if the moving player landed in their mancala
-        if not self.play_board.move(self.current_player, position):
+        if not self.play_board.move(self.current_player, position, False):
 
             # We only switch players if the moving player did not land in their mancala
             self.current_player = self.play_board.switch_player(self.current_player)
