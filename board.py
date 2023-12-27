@@ -13,12 +13,12 @@ class Board:
     The Board class contains all the logic for mancala board representation and manipulation
     """
 
-    # List to hold the representation of the mancala board
-    board = []
-
     # The mancala board will be represented with a list of length 14
     # with 12 pockets and two mancalas
     def __init__(self):
+
+        # List to hold the representation of the mancala board
+        self.board = []
 
         # Initializing player1's playable pockets
         for i in range(6):
