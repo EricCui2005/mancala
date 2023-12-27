@@ -72,14 +72,14 @@ class BoardGUI:
         if not self.play_board.valid_move(self.current_player, position):
             return
 
-        # We switch players if the supposed current player has no valid moves (their playable pockets are empty)
-        if self.play_board.empty_side(self.current_player):
-            self.current_player = self.play_board.switch_player(self.current_player)
-
         # Performing the move and checking if the moving player landed in their mancala
         if not self.play_board.move(self.current_player, position):
 
             # We only switch players if the moving player did not land in their mancala
+            self.current_player = self.play_board.switch_player(self.current_player)
+
+        # We switch players if the supposed current player has no valid moves (their playable pockets are empty)
+        if self.play_board.empty_side(self.current_player):
             self.current_player = self.play_board.switch_player(self.current_player)
 
         # Updating the boardGUI
@@ -89,7 +89,14 @@ class BoardGUI:
         self.root.grid_slaves(row=0, column=1)[0].configure(text=f"Player {self.current_player} to move")
 
         if self.play_board.check_end():
-            self.root.grid_slaves(row=0, column=1)[0].configure(text="Game end")
+            end_text = ""
+            if self.play_board.board[6].get_stones() > self.play_board.board[13].get_stones():
+                end_text = "Player 1 Wins"
+            elif self.play_board.board[6].get_stones() < self.play_board.board[13].get_stones():
+                end_text = "Player 2 Wins"
+            else:
+                end_text = "Draw"
+            self.root.grid_slaves(row=0, column=1)[0].configure(text=end_text)
 
     # Updates the text of the buttons and mancalas in the boardGUI
     def update_boardGUI(self):
