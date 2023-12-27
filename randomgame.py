@@ -2,14 +2,12 @@ import randomAI
 import board
 
 
-def randomGame():
+def randomGame(play_board):
     """
     Contains logic for playing a game where the two players make completely random moves
     :return: (int) 1 if player 1 wins, 2 if player 2 wins, and 0 for a draw
     """
     randy = randomAI.RandomAI()
-
-    play_board = board.Board()
 
     # Play initially begins with player1
     current_player = 1
@@ -37,6 +35,7 @@ def randomGame():
     else:
         return 0
 
+
 def random_game_trials(num_trials):
     """
     Runs a random vs random game trials
@@ -44,13 +43,14 @@ def random_game_trials(num_trials):
     :return: (list) of (int) Returns a list containing the win information. The first entry is the number of
     player1 wins, the second is player2 wins, and the third is the number of draws
     """
-    
+
     # List to contain win information
     win_data = [0, 0, 0]
 
-    # Executing trials according the num_trials
+    # Executing trials according to num_trials
     for i in range(num_trials):
-        result = randomGame()
+        play_board = board.Board()
+        result = randomGame(play_board)
         if result == 1:
             win_data[0] += 1
         elif result == 2:
@@ -58,6 +58,4 @@ def random_game_trials(num_trials):
         else:
             win_data[2] += 1
     return win_data
-
-
 
