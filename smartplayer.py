@@ -69,3 +69,34 @@ class smart_player():
                 # Because the player is currently minimizing, we return the min value that can arise
                 min_eval = min(min_eval, score)
             return min_eval
+
+    def MM_best_move(self, play_board, player, depth, scorer):
+        """
+        Algorithmically finds the best move for the current position
+        :param play_board: (Board) The current board being evaluated
+        :param player: (int) 1 for player1, 2 for player2
+        :param depth: (int) The depth of the minimax tree
+        :param scorer: (Function) The board evaluation function
+        :return: (int) The position of the optimal move
+        """
+
+        # Initializing an infinitely small max_score (because we are maximizing) and
+        # a variable to hold the eventually returned move
+        max_score = float('-inf')
+        best_move = None
+
+        # Looping through all possible moves
+        for position in play_board.get_valid_moves(player):
+
+            # Copying the board and making a move for evaluation
+            new_board = copy.deepcopy(play_board)
+            new_board.move(player, position)
+
+            # Returning the highest possible move from the position obtained from the current move
+            score = self.minimax(new_board, depth, True, scorer, player)
+
+            # Appropriately updating max_score and best_move
+            if score > max_score:
+                max_score = score
+                best_move = position
+        return best_move
