@@ -5,17 +5,14 @@ Created: December 2023
 Description: Contains the logic to initiate a mancala game loop
 """
 import board
+import boardGUI
 
 
 def play_game(play_board):
     """
-    Mancala cascade game loop
-    :param play_board: (Board) Takes in a board object
+    Mancala cascade game loop for console-based gameplay
     :return: (int) Returns 1 if player1 wins, 2 if player2 wins, and 0 if it is a draw
     """
-
-    # Initializing the play board and printing out its initial state
-    play_board = board.Board()
     play_board.print_board("simple")
 
     # Play initially begins with player1
@@ -26,7 +23,7 @@ def play_game(play_board):
 
         # Switches the player if the current player has no valid moves
         if play_board.empty_side(current_player):
-            current_player= play_board.switch_player(current_player)
+            current_player = play_board.switch_player(current_player)
 
         # Information output and move input gathering
         print(f"Player {current_player}'s Move")
@@ -38,7 +35,7 @@ def play_game(play_board):
             move_position = int(input("Move: "))
 
         # If the moving player landed in their mancala (they are allowed to move again), we do not switch the player
-        if play_board.move(current_player, move_position):
+        if play_board.move(current_player, move_position, True):
             continue
 
         # We switch players otherwise
@@ -56,12 +53,3 @@ def play_game(play_board):
     else:
         print("Draw")
         return 0
-
-
-
-
-
-
-
-
-
