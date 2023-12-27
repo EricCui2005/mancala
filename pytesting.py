@@ -28,11 +28,11 @@ def test_double_moves():
 
     # Successfully detects a double move for player 1 (player 1 landed in their mancala)
     play_board.set_board_state("0 0 0 0 2 0 0 1 0 0 0 0 0 0")
-    assert play_board.move(1,4)
+    assert play_board.move(1,4, False)
 
     # Successfully detects a double move for player 2 (player 2 landed in their mancala)
     play_board.set_board_state("0 1 0 0 0 0 0 0 0 0 0 2 0 0")
-    assert play_board.move(2, 11)
+    assert play_board.move(2, 11, False)
 
 
 def test_initial_end_state():
@@ -76,6 +76,7 @@ def test_get_valid_moves():
     # Some valid moves for player2
     play_board.set_board_state("0 0 0 0 0 0 0 1 0 1 1 1 0 0")
     assert set(play_board.get_valid_moves(2)) == {7, 9, 10, 11}
+
 
 
 
