@@ -7,7 +7,7 @@ Description: This is the main file for the mancala project
 import game
 import board
 import boardGUI
-import randomgame
+import gametests
 
 
 def main():
@@ -19,6 +19,7 @@ def main():
     print("(1): Two player console game")
     print("(2): Two player GUI game")
     print("(3): Random vs random trials")
+    print("(4): Simple vs random trials")
     selection = int(input("Select task: "))
 
     # BoardGUI selection
@@ -35,7 +36,16 @@ def random_trials_routine():
     :return: (void) Simply prints information
     """
     num_trials = int(input("Enter number of trials: "))
-    win_data = randomgame.random_game_trials(num_trials)
+    win_data = gametests.game_trials(num_trials, gametests.randomGame)
+    print(win_data)
+
+def simple_vs_random_routine():
+    """
+    Runs random vs simple game trials and outputs information
+    :return: (void) Simply prints information
+    """
+    num_trials = int(input("Enter number of trials: "))
+    win_data = gametests.game_trials(num_trials, gametests.random_vs_simple)
     print(win_data)
 
 
