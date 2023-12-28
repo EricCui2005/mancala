@@ -38,8 +38,8 @@ def randomGame(play_board):
     else:
         return 0
 
-def random_vs_simple(play_board):
 
+def random_vs_simple(play_board):
     randy = randomAI.RandomAI()
     sam = smartplayer.smart_player()
 
@@ -74,7 +74,7 @@ def random_vs_simple(play_board):
             # We switch players if the random player did not land in their mancala
             else:
                 play_board.switch_player(current_player)
-                
+
     # Game end
     if play_board.board[6].get_stones() > play_board.board[13].get_stones():
         return 1
@@ -82,8 +82,9 @@ def random_vs_simple(play_board):
         return 2
     else:
         return 0
-    
-def random_game_trials(num_trials):
+
+
+def game_trials(num_trials, game):
     """
     Runs a random vs random game trials
     :param num_trials: (int) The number of trials to be run
@@ -98,7 +99,7 @@ def random_game_trials(num_trials):
     # Executing trials according to num_trials
     for i in range(num_trials):
         play_board = copy.deepcopy(default_board)
-        result = randomGame(play_board)
+        result = game(play_board)
         if result == 1:
             win_data[0] += 1
         elif result == 2:
