@@ -1,6 +1,7 @@
 import board
 import copy
 
+
 class smart_player():
 
     def minimax(self, play_board, depth, maximizing, scorer, player):
@@ -35,10 +36,9 @@ class smart_player():
             # Making recursive calls on every possible position of the board that can be reached
             # from moves made by the maximizing player
             for position in play_board.get_valid_moves(player):
-
                 # Making a copy of play_board, making a legal move, and making a recursive call on the new board
                 new_board = copy.deepcopy(play_board)
-                new_board.move(player, position)
+                new_board.move(player, position, False)
 
                 # NOTE: We switch players in the recursive call
                 score = self.minimax(new_board, depth - 1, False, scorer, play_board.switch_player(player))
@@ -58,10 +58,9 @@ class smart_player():
             # Making recursive calls on every possible position of the board that can be reached
             # from moves made by the minimizing player
             for position in play_board.get_valid_moves(player):
-
                 # Making a copy of play_board, making a legal move, and making a recursive call on the new board
                 new_board = copy.deepcopy(play_board)
-                new_board.move(play_board.switch_player(player), position)
+                new_board.move(play_board.switch_player(player), position, False)
 
                 # NOTE: We switch players in the recursive call
                 score = self.minimax(new_board, depth - 1, True, scorer, play_board.switch_player(player))
@@ -90,7 +89,7 @@ class smart_player():
 
             # Copying the board and making a move for evaluation
             new_board = copy.deepcopy(play_board)
-            new_board.move(player, position)
+            new_board.move(player, position, False)
 
             # Returning the highest possible move from the position obtained from the current move
             score = self.minimax(new_board, depth, True, scorer, player)
@@ -99,4 +98,4 @@ class smart_player():
             if score > max_score:
                 max_score = score
                 best_move = position
-        return best_move
+        play_board.move(player, best_move, False)
