@@ -57,7 +57,7 @@ def random_vs_simple(play_board):
         if current_player == 1:
 
             # Checks if the SimpleAI landed in their mancala
-            if sam.MM_best_move(play_board, 1, 4, scorers.simple_score):
+            if sam.MM_best_move(play_board, 1, 3, scorers.simple_score):
                 continue
 
             # We switch players if the SimpleAI did not land in their mancala
@@ -72,7 +72,7 @@ def random_vs_simple(play_board):
 
             # We switch players if the random player did not land in their mancala
             else:
-                play_board.switch_player(current_player)
+                current_player = play_board.switch_player(current_player)
 
     # Game end
     if play_board.board[6].get_stones() > play_board.board[13].get_stones():
