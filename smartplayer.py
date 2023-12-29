@@ -18,9 +18,9 @@ class smart_player():
         :return: (int) The value of the highest possible board state evaluation that is possible from the
         current board position with the assumption that the opposing player moves optimally
         """
-        
+
         # Base case
-        if play_board.check_end() or depth == 0:
+        if play_board.check_end() or depth == 0 or play_board.empty_side(player):
             return scorer(play_board, player)
 
         # Switch player before making a move
